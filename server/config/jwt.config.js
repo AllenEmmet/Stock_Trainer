@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = "I can't believe this key is so secret!";
+const secret = process.env.FIRST_SECRET_KEY;
 module.exports.secret = secret;
 module.exports.authenticate = (req, res, next) => {
   jwt.verify(req.cookies.usertoken, secret, (err, payload) => {
