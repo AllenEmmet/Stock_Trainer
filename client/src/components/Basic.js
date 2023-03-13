@@ -82,17 +82,20 @@ const Basic = (props) => {
       {/* <FormControl> */}
         <form onSubmit={submitHandler}>
           <FormControl>
-            <InputLabel htmlFor='search'>Sticker:</InputLabel>
+            <InputLabel htmlFor='search'>Ticker:</InputLabel>
             <Input name='search' onChange={(e)=>setTicker(e.target.value)}></Input>
             <Button type='submit' sx={{color:'black'}}>Search</Button>
           </FormControl>
         </form>
       {/* </FormControl> */}
-        <h2>Current Price:</h2>
-        <h2>{price}</h2>
+        
         {
           price?
-          <button onClick={addStock}>Add stock to portfolio</button>:
+          <div>
+            <h2>Current Price:</h2>
+            <h2>{price}</h2>
+            <button onClick={addStock}>Add stock to portfolio</button>
+          </div>:
           null
         }
         {/* {

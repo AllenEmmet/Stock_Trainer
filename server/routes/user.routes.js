@@ -1,6 +1,6 @@
-// inside of user.routes.js
+
 const Users = require('../controllers/user.controller');
-const { authenticate } = require('../config/jwt.config');
+// const { authenticate } = require('../config/jwt.config');
 module.exports = app => {
   app.post("/register", Users.register);
   app.post("/login", Users.login);
@@ -13,6 +13,6 @@ module.exports = app => {
   app.get('/getPrice/:ticker', Users.getStockPrice)
 
   // this route now has to be authenticated
-//   app.get("/api/users", authenticate, Users.getAll);
+//   app.get("/api/usersCHANGEME", authenticate, Users.CHANGEME);
 }
 

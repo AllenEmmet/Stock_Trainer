@@ -69,6 +69,7 @@ const Dash = (props) => {
         axios.get('http://localhost:8000/getLoggedUser', {withCredentials:true})
         .then((res)=>{
             setUser(res.data)
+            console.log(user)
         })
         .catch((err)=>{console.log(err)})
     },[])
@@ -93,9 +94,7 @@ const Dash = (props) => {
                 <Typography>
                   {stock.ticker}
                 </Typography>
-                {/* <Typography>
-                  {stock.initialPrice}
-                </Typography> */}
+              
                 <Typography>
                   Current Price: {stock.currentValue}
                 </Typography>

@@ -1,5 +1,4 @@
 const User= require("../models/user.model")
-const Stock = require("../models/user.model")
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const axios = require('axios')
@@ -11,47 +10,39 @@ module.exports = {
             const user = new User(req.body)
             const newUser = await user.save()
             console.log('User created', newUser)
-            const userToken = jwt.sign({_id:newUser._id}, Secret)
-            res.status(201).cookie('userToken', userToken, {httpOnly:true, expires:new Date(Date.now()+90000)}).json({successMessage: 'User logged in', user:newUser})
+            const userToken = jwt.sign({id:newUser._id}, Secret)
+            console.log(userToken, 'regTok')
+            res
+            .cookie('userToken', userToken, {httpOnly:true})
+            .json({successMessage: 'User logged in', user:newUser})
         }catch(error){
-            this.res.status(400).json(error)
+            res.json(error)
         }
-        // const {firstName} = req.body
-        // const {lastName} = req.body
-        // const {email} = req.body
-        // const{password} = req.body
-        // const {confirmPassword} = req.body
-        // User.create({firstName: firstName, lastName: lastName, email:email, password: password, confirmPassword: confirmPassword})
-        //   .then(user => {
-        //       res.json({ msg: "success!", user: user });
-        //   })
-        //   .catch(err => res.json(err));
+   
       }, 
     login: async(req, res) => {
         console.log('test')
         const user = await User.findOne({ email: req.body.email });
          console.log('User', user)
         if(user === null) {
-        // email not found in users collection
          return res.sendStatus(400), console.log('test') //.json(error);
         }
          
-        // if we made it this far, we found a user with this email address
-        // let's compare the supplied password to the hashed password in the database
+  
         const correctPassword = await bcrypt.compare(req.body.password, user.password);
          
         if(!correctPassword) {
-        // password wasn't a match!
+       
         console.log('pass failed')
-        return res.sendStatus(400)//.json(error);
+        return res.sendStatus(400)
         }
          
         // if we made it this far, the password was correct
         const userToken = jwt.sign({
         id: user._id 
         }, Secret);
-         
-        // note that the response object allows chained calls to cookie and json
+        console.log(userToken, 'logTok')
+        // REMEMBER! the response object allows chained calls to cookie and json
         res
         .cookie("userToken", userToken, {
         httpOnly: true
@@ -68,7 +59,7 @@ module.exports = {
         User.findOne({_id:user.id})
         .then((user)=>{
             res.json(user);
-            console.log(user)
+            console.log(user, 'working?')
         })
         .catch((err)=>{
             console.log(err)
@@ -76,16 +67,7 @@ module.exports = {
     },
     addStock: (req, res) =>{
         const user = jwt.verify(req.cookies.userToken, Secret)
-        // const stock = new Stock(req.body)
-        // console.log('the stock is:', stock)
-        // console.log('the rb is:', req.body)
-        // this was the original--I want to use nested object
-    //     const stock = {
-    //         'ticker': req.body.ticker,
-    //         'initialPrice': req.body.initialPrice,
-    //         'currentValue': req.body.currentValue
-    // }
-        // console.log('stock:',stock)
+        
         User.findOneAndUpdate({_id:user.id}, {'$push':{ 'stocks':{
             ticker: req.body.ticker,
             initialPrice: req.body.initialPrice,

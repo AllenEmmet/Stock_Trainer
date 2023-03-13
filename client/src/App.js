@@ -7,14 +7,12 @@ import Dash from './components/Dash';
 import {BrowserRouter, Route, Router, Routes} from 'react-router-dom'
 import { useState } from 'react';
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({})
 
   return (
     <div className="App">
       
       <BrowserRouter>
-      {/* <NavBar isLoggedIn = {isLoggedIn} setIsLoggedIn={setIsLoggedIn}></NavBar> */}
         <Routes>
           <Route element={<Register user={user} setUser={setUser}></Register>} path='/' default></Route>
           <Route element={<Dash user={user} setUser={setUser}></Dash>} path='/dashboard'></Route>

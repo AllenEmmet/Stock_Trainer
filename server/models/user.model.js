@@ -1,30 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const Stock = require('../models/stock.model')
-// const StockSchema = new mongoose.Schema({
-//     ticker: {
-//         type: String,
-//         required: [true, 'Name is required!'],
-//         // minLength: [3, 'Name must be at least 3 characters']
-//     }, 
-//     initialPrice:{
-//         type: Number, 
-//         required: [true, 'price is required!'],
-//         // minLength: [3, 'Type must be at least 3 characters']
 
-//     }, 
-//     currentValue:{
-//         type: Number,
-//         required: [true, 'Description is required!'],
-//         // minLength: [3, 'Description must be at least 3 characters']
-//     }
-  
-// },
-// {
-//     timestamps: true
-// }
-
-// )
 const UserSchema = new mongoose.Schema({
     firstName: {
       type: String,
@@ -81,6 +57,5 @@ UserSchema.pre('save', async function(next) {
 
 
 const User = mongoose.model("User", UserSchema);
-// const Stock = mongoose.model("Stock", StockSchema)
+
 module.exports = User
-// , Stock

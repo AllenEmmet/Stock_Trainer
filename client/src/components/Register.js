@@ -3,13 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Register = (props) => {
-    // const [user, setuser] = useState({
-    //     firstName:'',
-    //     lastName:'',
-    //     email: '',
-    //     password:'',
-    //     confirmPassword: ''
-    // })
+ 
     const navigate = useNavigate()
     const {user, setUser} = props
     const [firstName, setFirstName] = useState('')
@@ -27,10 +21,11 @@ const Register = (props) => {
             confirmPassword: confirmPass
         }, {withCredentials: true})
         .then((res)=>{
-            console.log(res)
+            console.log(res, "front working?")
             setUser(res)
+            navigate('/dashboard')
         })
-        .catch(err=>console.log(err))
+        .catch((err)=>console.log(err, 'regFail'))
     }
 
     const loginHandler = (e) =>{
